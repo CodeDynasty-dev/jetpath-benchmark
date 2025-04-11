@@ -1,0 +1,14 @@
+{
+  "name": "jetpath-benchmark",
+  "version": "0.0.0",
+  "author": "friday candour",
+  "main": "index.js",
+  "description": "",
+  "keywords": [],
+  "license": "MIT",
+  "scripts": {
+    "elysia": "bun elysia/src/index.ts",
+    "jetpath": "bun jetpath/src/index.routes.ts",
+    "bench": "wrk -t1 -c200 -d30 -R1000000 -L  http://localhost:3000/"
+  }
+}

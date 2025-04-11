@@ -1,0 +1,14 @@
+{
+  "name": "hi-elysia",
+  "version": "1.0.50",
+  "module": "src/index.js",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "scripts": {
+    "dev": "bun src/index.ts"
+  },
+  "dependencies": {
+    "elysia": "^1.2.25"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "jetpath-benchmark",
+  "version": "1.0.0",
+  "author": "",
+  "main": "index.js",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "scripts": {
+    "dev": "bun src/index.jet.ts"
+  },
+  "type": "module",
+  "dependencies": {
+    "jetpath": "^1.6.2"
+  }
+}
