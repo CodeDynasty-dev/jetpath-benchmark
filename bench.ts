@@ -596,11 +596,11 @@ async function main() {
   const scoreB = calculateScore(serverBResult, serverAResult);
 
   // Format scores as percentages for better interpretation
-  const scoreAPercent = (scoreA / (scoreA + scoreB)) * 100;
-  const scoreBPercent = (scoreB / (scoreA + scoreB)) * 100;
+  const scoreATimes = scoreA / scoreB;
+  const scoreBTimes = scoreB / scoreA;
 
-  console.log(`Jetpath score: ${BLUE}${formatNumber(scoreAPercent)}%${RESET}`);
-  console.log(`Elysia score: ${GREEN}${formatNumber(scoreBPercent)}%${RESET}`);
+  console.log(`Jetpath score: ${BLUE}${formatNumber(scoreATimes)}x${RESET}`);
+  console.log(`Elysia score: ${GREEN}${formatNumber(scoreBTimes)}x${RESET}`);
 
   // Highlight winner
   const scoreDiff = Math.abs(scoreA - scoreB);
@@ -616,12 +616,12 @@ async function main() {
   } else if (scoreA > scoreB) {
     winnerBox = createBox(
       `${BLUE}${BOLD}🏆  Jetpath WINS${RESET}\n` +
-        `Outperforms Elysia by ${formatNumber(percentImprovement)}%`,
+        `Outperforms Elysia by ${formatNumber(scoreATimes)}x`,
     );
   } else {
     winnerBox = createBox(
       `${GREEN}${BOLD}🏆  Elysia WINS${RESET}\n` +
-        `Outperforms Jetpath by ${formatNumber(percentImprovement)}%`,
+        `Outperforms Jetpath by ${formatNumber(scoreBTimes)}x`,
     );
   }
 
