@@ -1,23 +1,8 @@
 # Benchmark
 
-This benchmark is bun based, this is an aim to test with bun fastest framworks.
+This benchmark is bun based, this is an aim to test with bun fastest frameworks.
 
 # Results
-
-result are to verbose by running the benchmark you check out the difference your
-self.
-
-JetPath wrk 797k requests in 30.00s, 146.05MB read
-
----
-
-elysia wrk 1,302k requests in 30.00s, 157.73MB read 1,004k requests in 30.00s,
-121.71MB read 1,191k requests in 30.00s, 144.31MB read
-
-bun.serve wrk 1,533k requests in 30.00s, 185.77MB read 1,467k requests in
-30.00s, 177.79MB read 1,064k requests in 30.00s, 128.88MB read
-
-Machine used for the benchmark friday@uiedbook
 
 ---
 
@@ -31,56 +16,41 @@ Node and deno.
 
 # how to run this benchmark
 
-clone this repo bun ins and run thses scripts
+clone this repo bun ins and run these scripts
 
-bun run elysia bun run jetpath bun run bench
+```bash
+bun run elysia
+bun run jetpath
+bun run bench
+```
 
-# jetpath-benchmark
+# Jetpath-benchmark
 
- 
- 
+## Server Performance Comparison (JETPATH vs ELYSIA)
 
-▶ BENCHMARK RESULTS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-┌─────────────────────┬──────────────────────────┬──────────────────────────┐
-│Metric               │Jetpath                   │Elysia                    │
-╞═════════════════════╪══════════════════════════╪══════════════════════════╡
-│Requests Completed   │100000 / 100000  │100000 / 100000  │
-│Success Rate         │100.00%          │100.00%          │
-│Total Duration       │6.59s            │4.88s            │
-│Requests per Second  │15179.11         │20500.21         │
-│Data Throughput      │163.06 KB/s      │220.22 KB/s      │
-│Avg Response Time    │0.35ms           │0.26ms           │
-│Min Response Time    │0.09ms           │0.08ms           │
-│Max Response Time    │9.48ms           │5.83ms           │
-│p50 Response Time    │0.25ms           │0.20ms           │
-│p90 Response Time    │0.54ms           │0.38ms           │
-│p95 Response Time    │0.95ms           │0.66ms           │
-│p99 Response Time    │1.77ms           │1.37ms           │
-└─────────────────────┴──────────────────────────┴──────────────────────────┘
-                
+**Benchmark Details:**
 
-■ - Jetpath, ■ - Elysia
+- **Tool:** oha
+- **Workload:** 1,000,000 requests @ 1,000 concurrent connections (following warm-up)
+- **Servers:** JETPATH (localhost:3000), ELYSIA (localhost:3001)
 
-▶ BENCHMARK CONCLUSION
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Jetpath score: 46.38%
-Elysia score: 53.62%
+---
 
-┌───────────────────────────────┐
-│ 🏆  Elysia WINS  │
-│ Outperforms Jetpath by 15.59% │
-└───────────────────────────────┘
+### Key Metrics Summary
 
-▶ RECOMMENDATIONS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-• High variance in response times detected. Consider investigating resource contention or GC pauses.
+| Metric                   | JETPATH (localhost:3000) | ELYSIA (localhost:3001) | Comparison Summary                                                            |
+| :----------------------- | :----------------------- | :---------------------- | :---------------------------------------------------------------------------- |
+| **Success Rate**         | 100.00%                  | 100.00%                 | Both servers handled all requests successfully.                               |
+| **Total Time**           | **31.84 seconds**        | 32.80 seconds           | JETPATH finished **~2.9% faster**.                                            |
+| **Requests/Second**      | **31,409 req/sec**       | 30,490 req/sec          | JETPATH processed **~3.0% more requests/sec**.                                |
+| **Average Latency**      | **31.8 ms**              | 32.7 ms                 | JETPATH had **~2.7% lower average latency**.                                  |
+| **Median (50%) Latency** | 31.2 ms                  | **22.4 ms**             | ELYSIA is **~28.2% faster** for the median request.                           |
+| **95% Latency**          | **66.0 ms**              | 97.8 ms                 | JETPATH is **~32.5% faster** for 95% of requests.                             |
+| **99% Latency**          | **113.9 ms**             | 175.7 ms                | JETPATH is **~35.2% faster** for 99% of requests.                             |
+| **Slowest Latency**      | **0.22 seconds**         | 1.97 seconds            | JETPATH's slowest response was **~89% faster** than ELYSIA's extreme outlier. |
 
-▶ BENCHMARK SUMMARY
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Elysia handled 20500.21 requests/second with 0.26ms average response time
-Jetpath handled 15179.11 requests/second with 0.35ms average response time
+---
 
-Elysia is 35.06% faster in throughput
-Elysia is 30.68% faster in response time
- 
+### Conclusion
+
+JETPATH shows slightly higher overall throughput and lower average latency. However, ELYSIA demonstrates faster performance for the typical request (median latency). Critically, JETPATH exhibits significantly better latency consistency, particularly for the slowest requests (95th, 99th percentiles, and absolute slowest), avoiding the severe latency spikes seen in ELYSIA.

@@ -9,6 +9,6 @@
   "scripts": {
     "elysia": "bun elysia/src/index.ts",
     "jetpath": "bun jetpath/src/index.routes.ts",
-    "bench": "wrk -t1 -c200 -d30 -R1000000 -L  http://localhost:3000/"
+    "bench": "./bench.sh"
   }
 }

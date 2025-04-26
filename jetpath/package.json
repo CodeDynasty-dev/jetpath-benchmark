@@ -3,12 +3,6 @@
   "version": "1.0.0",
   "author": "",
   "main": "index.js",
-  "devDependencies": {
-    "bun-types": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
   "description": "",
   "keywords": [],
   "license": "ISC",
@@ -17,6 +11,6 @@
   },
   "type": "module",
   "dependencies": {
-    "jetpath": "^1.6.2"
+    "jetpath": "^1.7.0"
   }
 }

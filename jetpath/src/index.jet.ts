@@ -1,6 +1,6 @@
-import { type JetFunc, JetPath } from "jetpath";
+import { type JetFunc, Jetpath } from "jetpath";
 
-new JetPath({ port: 3000 }).listen();
+new Jetpath({ port: 3000 }).listen();
 
 export const GET_: JetFunc = (ctx) => {
   ctx.send("hello world");
