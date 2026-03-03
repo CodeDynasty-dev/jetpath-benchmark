@@ -11,4 +11,5 @@ package-lock.json
 
 # Other stuff
 results_
+results/
 htstress
