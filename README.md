@@ -6,17 +6,17 @@ This benchmark is bun based, this is an aim to test with bun fastest frameworks.
 
 ---
 
-- OS: MacOS
-- Host: MacBook Pro
-- Kernel: 25.4.0
+- OS: macOS 15.4.0
+- Host: MacBook Pro (12 Threads)
+- Memory: 32 GB
 - Shell: bash 5.1.16
+- Tool: oha 1.14.0
 
-This makes Jetpath one of bun's fastest frameworks and also among the fastest on
-Node and deno.
+This benchmark compares **Jetpath**, **ElysiaJS**, and **Bun.serve** under high-concurrency load.
 
 # how to run this benchmark
 
-clone this repo bun ins and run these scripts
+Clone this repo, install dependencies for each framework, and run the benchmark script:
 
 ```bash
 cd jetpath && bun install && cd ..
@@ -27,31 +27,32 @@ bash bench.sh
 
 # Jetpath-benchmark
 
-## Server Performance Comparison (JETPATH vs ELYSIA)
+## Server Performance Comparison (JETPATH vs ELYSIA vs BUN)
 
 **Benchmark Details:**
 
 - **Tool:** oha
-- **Workload:** 1,000,000 requests @ 1,000 concurrent connections (following warm-up)
-- **Servers:** JETPATH (localhost:3000), ELYSIA (localhost:3001)
+- **Workload:** 30s duration per round (3 rounds aggregated)
+- **Concurrency:** 256 concurrent connections (tuned for 12-thread CPU)
+- **Warm-up:** 10,000 requests @ 50 concurrency
+- **Servers:** JETPATH (:3000), ELYSIA (:3001), BUN (:3002)
 
 ---
 
 ### Key Metrics Summary
 
-| Metric                   | JETPATH (localhost:3000) | ELYSIA (localhost:3001) | Comparison Summary                                                            |
-| :----------------------- | :----------------------- | :---------------------- | :---------------------------------------------------------------------------- |
-| **Success Rate**         | 100.00%                  | 100.00%                 | Both servers handled all requests successfully.                               |
-| **Total Time**           | **31.84 seconds**        | 32.80 seconds           | JETPATH finished **~2.9% faster**.                                            |
-| **Requests/Second**      | **31,409 req/sec**       | 30,490 req/sec          | JETPATH processed **~3.0% more requests/sec**.                                |
-| **Average Latency**      | **31.8 ms**              | 32.7 ms                 | JETPATH had **~2.7% lower average latency**.                                  |
-| **Median (50%) Latency** | 31.2 ms                  | **22.4 ms**             | ELYSIA is **~28.2% faster** for the median request.                           |
-| **95% Latency**          | **66.0 ms**              | 97.8 ms                 | JETPATH is **~32.5% faster** for 95% of requests.                             |
-| **99% Latency**          | **113.9 ms**             | 175.7 ms                | JETPATH is **~35.2% faster** for 99% of requests.                             |
-| **Slowest Latency**      | **0.22 seconds**         | 1.97 seconds            | JETPATH's slowest response was **~89% faster** than ELYSIA's extreme outlier. |
+| Metric | JETPATH (localhost:3000) | ELYSIA (localhost:3001) | BUN Native (localhost:3002) |
+| :--- | :--- | :--- | :--- |
+| **Success Rate** | 100.00% | 100.00% | 100.00% |
+| **Requests/Second** | 33,495 | 41,082 | **48,246** |
+| **Average Latency** | 8.12 ms | 6.22 ms | **5.30 ms** |
+| **Median (50%) Latency** | 7.72 ms | 5.85 ms | **5.06 ms** |
+| **95% Latency** | 9.30 ms | 7.05 ms | **5.95 ms** |
+| **99% Latency** | 12.45 ms | 9.40 ms | **7.50 ms** |
+| **Slowest Latency** | 106.7 ms | 102.4 ms | **75.3 ms** |
 
 ---
 
 ### Conclusion
 
-JETPATH shows slightly higher overall throughput and lower average latency. However, ELYSIA demonstrates faster performance for the typical request (median latency). Critically, JETPATH exhibits significantly better latency consistency, particularly for the slowest requests (95th, 99th percentiles, and absolute slowest), avoiding the severe latency spikes seen in ELYSIA.
+All three frameworks managed to maintain a 100% success rate under a steady load of 256 concurrent connections. The benchmark setup (lifecycle management, warm-ups, and cooldowns) ensures that these results are not skewed by resource contention or thermal throttling between runs.
