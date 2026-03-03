@@ -3,17 +3,18 @@
 # Define server URLs
 JETPATH="http://localhost:3000"
 ELYSIA="http://localhost:3001"
+BUN="http://localhost:3002"
 
 # --- Benchmark Configuration ---
 # Warm-up phase: A small number of requests to get the server ready
-WARMUP_REQUESTS=20000
-WARMUP_CONCURRENCY=200
+WARMUP_REQUESTS=1000
+WARMUP_CONCURRENCY=10000
 
 # Main benchmark: High concurrency test
-BENCHMARK_REQUESTS=1000000  # Total number of requests
-BENCHMARK_CONCURRENCY=1000  # Number of concurrent connections
+# BENCHMARK_REQUESTS=1000000  # Total number of requests
+BENCHMARK_CONCURRENCY=10000  # Number of concurrent connections
 # OR use duration instead of requests (uncomment the line below and comment BENCHMARK_REQUESTS)
-# BENCHMARK_DURATION="30s" # Duration of the benchmark (e.g., 30s, 1m, 5m)
+BENCHMARK_DURATION="60s" # Duration of the benchmark (e.g., 30s, 1m, 5m)
 
 
 echo "--- Starting Benchmarks ---"
@@ -53,6 +54,23 @@ else
 fi
 
 echo "Main benchmark for $ELYSIA complete."
+echo ""
+
+echo "--- Benchmark BUN: $BUN ---"
+echo "Starting warm-up ($WARMUP_REQUESTS requests, $WARMUP_CONCURRENCY concurrency)..."
+oha -n $WARMUP_REQUESTS -c $WARMUP_CONCURRENCY $BUN > /dev/null # Warm-up output redirected to /dev/null
+echo "Warm-up for $BUN complete."
+
+# Choose between requests or duration for the main benchmark
+if [ -z "$BENCHMARK_DURATION" ]; then
+    echo "Starting main benchmark ($BENCHMARK_REQUESTS requests, $BENCHMARK_CONCURRENCY concurrency)..."
+    oha -n $BENCHMARK_REQUESTS -c $BENCHMARK_CONCURRENCY $BUN
+else
+    echo "Starting main benchmark ($BENCHMARK_DURATION duration, $BENCHMARK_CONCURRENCY concurrency)..."
+    oha -z $BENCHMARK_DURATION -c $BENCHMARK_CONCURRENCY $BUN
+fi
+
+echo "Main benchmark for $BUN complete."
 echo ""
 
 echo "--- Benchmarks Finished ---"

@@ -9,6 +9,8 @@
   "scripts": {
     "elysia": "bun elysia/src/index.ts",
     "jetpath": "bun jetpath/src/index.routes.ts",
+    "bun": "bun bunt.ts",
+    "start": "bun bunt.ts & bun elysia/src/index.ts & bun jetpath/src/index.routes.ts",
     "bench": "./bench.sh"
   }
 }

@@ -1,5 +1,11 @@
-Bun.serve({
+import { serve } from "bun";
+
+let time = { timestamp: Date.now() };
+
+serve({
+  port: 3002,
   fetch() {
-    return new Response("hello world");
+    time.timestamp = Date.now();
+    return Response.json(time);
   },
 });
