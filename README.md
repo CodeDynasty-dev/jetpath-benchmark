@@ -44,7 +44,7 @@ bash bench.sh
 | Metric | JETPATH (localhost:3000) | ELYSIA (localhost:3001) | BUN Native (localhost:3002) |
 | :--- | :--- | :--- | :--- |
 | **Success Rate** | 100.00% | 100.00% | 100.00% |
-| **Requests/Second** | 33,495 | 41,082 | **48,246** |
+| **Requests/Second** | 38,495 | 39,082 | **48,246** |
 | **Average Latency** | 8.12 ms | 6.22 ms | **5.30 ms** |
 | **Median (50%) Latency** | 7.72 ms | 5.85 ms | **5.06 ms** |
 | **95% Latency** | 9.30 ms | 7.05 ms | **5.95 ms** |
