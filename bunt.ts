@@ -6,6 +6,6 @@ serve({
   port: 3002,
   fetch() {
     time.timestamp = Date.now();
-    return Response.json(time);
+    return Response.json({time});
   },
 });

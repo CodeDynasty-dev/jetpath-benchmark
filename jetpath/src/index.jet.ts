@@ -1,4 +1,4 @@
-import { type JetFunc, Jetpath } from "jetpath";
+import { type JetRoute, Jetpath } from "jetpath";
 
 new Jetpath({
   port: 3000,
@@ -9,7 +9,7 @@ new Jetpath({
 
 let time = { timestamp: Date.now() };
 
-export const GET_: JetFunc = (ctx) => {
+export const GET_: JetRoute = (ctx) => {
   time.timestamp = Date.now();
-  ctx.send(time);
+  ctx.send({time});
 };

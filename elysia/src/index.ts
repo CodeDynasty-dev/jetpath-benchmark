@@ -5,7 +5,7 @@ const time = { timestamp: Date.now() };
 const app = new Elysia()
   .get("/", () => {
     time.timestamp = Date.now();
-    return time;
+    return {time};
   })
   .listen(3001);
 
